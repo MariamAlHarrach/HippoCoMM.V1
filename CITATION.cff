@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "HippoCoMM: a 3D neuroinspired computational model of the hippocampus CA1 subfield"
+version: 1.0.0    
+date-released: 2026-11-16   
+license: MIT
+repository-code: "https://github.com/MariamAlHarrach/HippoCoMM.V1"
+doi: "10.5281/zenodo.24282416"   
+authors:
+  - family-names: "Al Harrach"
+    given-names: "Mariam"
+    orcid: "https://orcid.org/0000-0003-0948-8375"   
+    affiliation: Université de Rennes, Inserm U1099, 35000 Rennes, France
+
+  - family-names: "Yochum"
+    given-names: "Maxime"
+    orcid: "https://orcid.org/0000-0001-8632-6041"   
+    affiliation: Université de Rennes, Inserm U1099, 35000 Rennes, France
+ 
+
+keywords:
+  - hippocampus
+  - CA1
+  - computational neuroscience
+  - local field potential
+  - neural network simulation
