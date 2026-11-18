@@ -347,7 +347,9 @@ class Inter_OLM_SOM:
         self.y[1] = self.alpha_h_OLM(self.y[0]) / (self.alpha_h_OLM(self.y[0]) + self.beta_h_OLM(self.y[0]))
         self.y[2] = self.alpha_n_OLM(self.y[0]) / (self.alpha_n_OLM(self.y[0]) + self.beta_n_OLM(self.y[0]))
         self.y[3] = 0.0
-        self.y[4] = self.H_inf_OLM(self.y[0]) * self.tau_H_OLM(self.y[0])
+        # self.y[4] = self.H_inf_OLM(self.y[0]) * self.tau_H_OLM(self.y[0])
+        self.y[4] = self.H_inf_OLM(self.y[0])
+
         self.y[5] = 9.5
 
     def bruitGaussien(self,s, m):
@@ -371,7 +373,7 @@ class Inter_OLM_SOM:
         self.I_K = self.I_K_OLM(self.g_K, self.y[2], self.y[0], self.E_K)
         self.I_Ca = self.I_Ca_OLM(self.g_Ca, self.m_inf_Ca, self.y[0], self.E_Ca)
         self.I_KCa = self.I_KCa_OLM(self.g_KCa, self.KCa_fonc, self.y[0], self.E_K)
-        self.I_h = self.I_h_OLM(self.g_h, self.y[4], self.y[0], self.E_K)
+        self.I_h = self.I_h_OLM(self.g_h, self.y[4], self.y[0], self.E_h)
         self.I_leak = self.I_leak_OLM(self.g_leak, self.PERCENT, self.y[0], self.E_leak)
 
         # self.I_soma_stim = [self getI_soma_stim];
@@ -459,13 +461,21 @@ class Inter_OLM_SOM:
 
     # ---------------------------------------
     def H_inf_OLM(self, V_OLM):
-        return 1. / (1. + np.exp((V_OLM + 80.) / 10.))
+        # return 1. / (1. + np.exp((V_OLM + 80.) / 10.))
+        return 1.-1./(1. +np.exp(-(V_OLM + 90.)/8.5))
 
 
     def tau_H_OLM(self, V_OLM):
-        n = 200.
-        d = np.exp((V_OLM + 70.) / 20.) + np.exp(-(V_OLM + 70.) / 20.)
-        return (n / d) + 5.
+        # n = 200.
+        # d = np.exp((V_OLM + 70.) / 20.) + np.exp(-(V_OLM + 70.) / 20.)
+        # return (n / d) + 5.
+        if V_OLM > -30.:
+            return 1.
+        else:
+            return (2. / (np.exp(-(V_OLM + 145.) / 17.5)
+                          + np.exp((V_OLM + 16.8) / 16.5)
+                          )) + 10.
+
 
     # ---------------------------------------
     def F_fonc_OLM(self, Vpre):
